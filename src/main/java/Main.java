@@ -35,35 +35,35 @@ public class Main {
     public void SignIntoAccountTest()  {
 
         pageTesting
-                .openApplication()
-                .goToSignInPage()
-                .enterRegistrationEmail(loginEmail)
-                .goToRegistrationPage();
+                .openApplication();
+//                .goToSignInPage()
+//                .enterRegistrationEmail(loginEmail)
+//                .goToRegistrationPage();
+//
+//        Assert.assertEquals( createAccountContent, pageTesting.getCreateAccountContentValue());
 
-        Assert.assertEquals( createAccountContent, pageTesting.getCreateAccountContentValue());
-
-
-    }
-
-    @Test
-    public void CreateAccountTest(){
-        SignIntoAccountTest();
-        pageTesting
-                .setFirstName("Nik")
-                .setLastName("Nik")
-                .enterPassword("123444")
-                .setAddrFirstName("NikF")
-                .setAddrLastName("NikL")
-                .setAddress("Some str.")
-                .setCity("Kiev")
-                .setCode("124")
-                .setMobilePhone("05012345678")
-                .setAlias("Some str.")
-                .registerAccount();
-
-        Assert.assertEquals( errorMessage, pageTesting.getCreateAccountErrorMessage());
 
     }
+
+//    @Test
+//    public void CreateAccountTest(){
+//        SignIntoAccountTest();
+//        pageTesting
+//                .setFirstName("Nik")
+//                .setLastName("Nik")
+//                .enterPassword("123444")
+//                .setAddrFirstName("NikF")
+//                .setAddrLastName("NikL")
+//                .setAddress("Some str.")
+//                .setCity("Kiev")
+//                .setCode("124")
+//                .setMobilePhone("05012345678")
+//                .setAlias("Some str.")
+//                .registerAccount();
+//
+//        Assert.assertEquals( errorMessage, pageTesting.getCreateAccountErrorMessage());
+//
+//    }
 
     public static void main(String[] args) {
 
