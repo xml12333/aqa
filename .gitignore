@@ -1,0 +1,7 @@
+*.iml
+.idea
+/target
+*.png
+*.html
+*.lib
+.idea/misc.xml
