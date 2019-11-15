@@ -31,6 +31,11 @@ public class PageTesting {
     private static final By registerButton = By.id("submitAccount");
     private static final By errorMessage = By.xpath("//div[contains(@class,'alert')]/p");
 
+    private static final By searchField = By.xpath("//input[@id='search_query_top']");
+    private static final By searchButton = By.xpath("//button[@name='submit_search']");
+    private static final By listButton = By.xpath("//li[@id='list']/a/i");
+    private static final By addToCartButton = By.xpath("//span[contains(.,'Add to cart')]");
+
     public PageTesting(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(this.driver, 5);
@@ -130,5 +135,23 @@ public class PageTesting {
     public String getCreateAccountContentValue() {
         return driver.findElement(createAccountContent).getText();
     }
+
+    public PageTesting enterSearchString(String searchString) {
+        driver.findElement(searchField).sendKeys(searchString);
+        return this;
+    }
+    public PageTesting goSearchPage() {
+        driver.findElement(searchButton).click();
+        return this;
+    }
+    public PageTesting chengeViewToList() {
+        driver.findElement(listButton).click();
+        return this;
+    }
+    public PageTesting addToCart() {
+        driver.findElement(addToCartButton).click();
+        return this;
+    }
+
 
 }

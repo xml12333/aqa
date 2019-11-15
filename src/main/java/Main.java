@@ -11,7 +11,7 @@ public class Main {
     public static WebDriver driver;
     public  static WebDriverWait wait;
 
-    String loginEmail = "xml12333@gmail.com";
+    String searchString = "Blouse";
     String createAccountContent = "CREATE AN ACCOUNT";
     String errorMessage= "There are 2 errors";
 
@@ -32,25 +32,21 @@ public class Main {
     }
 
     @Test
-    public void SignIntoAccountTest()  {
+    public void MakeSearch()  {
 
         pageTesting
-                .openApplication();
-//                .goToSignInPage()
-//                .enterRegistrationEmail(loginEmail)
-//                .goToRegistrationPage();
-//
-//        Assert.assertEquals( createAccountContent, pageTesting.getCreateAccountContentValue());
-
+                .openApplication()
+                .enterSearchString(searchString)
+                .goSearchPage();
 
     }
 
-//    @Test
-//    public void CreateAccountTest(){
-//        SignIntoAccountTest();
-//        pageTesting
-//                .setFirstName("Nik")
-//                .setLastName("Nik")
+    @Test
+    public void CreateAccountTest(){
+        MakeSearch();
+        pageTesting
+                 .chengeViewToList()
+                .addToCart();
 //                .enterPassword("123444")
 //                .setAddrFirstName("NikF")
 //                .setAddrLastName("NikL")
@@ -63,7 +59,7 @@ public class Main {
 //
 //        Assert.assertEquals( errorMessage, pageTesting.getCreateAccountErrorMessage());
 //
-//    }
+    }
 
     public static void main(String[] args) {
 
