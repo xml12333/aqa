@@ -9,12 +9,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static WebDriver driver;
-    public  static WebDriverWait wait;
 
     String searchString = "Blouse";
-    String createAccountContent = "CREATE AN ACCOUNT";
-    String errorMessage= "There are 2 errors";
-
+    String currency = "$";
+    String totalProductsInCart= "54.00";
+    String totalProductsShipingInCart= "2.00";
+    String totalInCart= "56.00";
+    String taxInCart= "0.00";
+    String bigTotalInCart= "56.00";
+    String emptyCart = "Your shopping cart is empty.";
     static PageTesting pageTesting;
 
     @BeforeClass
@@ -25,7 +28,6 @@ public class Main {
 
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
 
         pageTesting = new PageTesting(driver);
 
@@ -42,23 +44,28 @@ public class Main {
     }
 
     @Test
-    public void CreateAccountTest(){
+    public void AddAndCheckCart(){
         MakeSearch();
         pageTesting
                  .chengeViewToList()
-                .addToCart();
-//                .enterPassword("123444")
-//                .setAddrFirstName("NikF")
-//                .setAddrLastName("NikL")
-//                .setAddress("Some str.")
-//                .setCity("Kiev")
-//                .setCode("124")
-//                .setMobilePhone("05012345678")
-//                .setAlias("Some str.")
-//                .registerAccount();
+                .addToCart()
+                .proceedToCheckOut()
+                .addCountIncheckOut();
+
+        Assert.assertEquals( currency+totalProductsInCart, pageTesting.getTotalProductsInCart(currency+totalProductsInCart));
+        Assert.assertEquals( currency+totalProductsShipingInCart, pageTesting.getTotalProductsShipingInCart());
+        Assert.assertEquals( currency+totalInCart, pageTesting.getTotalInCart());
+        Assert.assertEquals( currency+taxInCart, pageTesting.getTaxInCart());
+        Assert.assertEquals( currency+bigTotalInCart, pageTesting.getBigTotalInCart());
 //
-//        Assert.assertEquals( errorMessage, pageTesting.getCreateAccountErrorMessage());
-//
+    }
+
+    @Test
+    public void DeleteAndCheckCart(){
+        AddAndCheckCart();
+        pageTesting
+                .deleteFromCart();
+        Assert.assertEquals( emptyCart, pageTesting.checkCart(emptyCart));
     }
 
     public static void main(String[] args) {
