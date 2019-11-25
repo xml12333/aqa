@@ -1,35 +1,31 @@
-import site.PageTesting;
-import org.junit.Assert;
+import org.junit.AfterClass;
+import org.openqa.selenium.By;
+import site.FieldClassBuilder;
+import site.MainPage;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static WebDriver driver;
 
-    String searchString = "Blouse";
-    String currency = "$";
-    String totalProductsInCart= "54.00";
-    String totalProductsShipingInCart= "2.00";
-    String totalInCart= "56.00";
-    String taxInCart= "0.00";
-    String bigTotalInCart= "56.00";
-    String emptyCart = "Your shopping cart is empty.";
-    static PageTesting pageTesting;
+    static MainPage pageTesting;
 
     @BeforeClass
     public static void setupClass() {
 
-        System.setProperty("webdriver.chrome.driver","D:\\temp\\chromedriver_78\\chromedriver.exe");
-        driver = new ChromeDriver();
-
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-        pageTesting = new PageTesting(driver);
+        FieldClassBuilder fieldObj = FieldClassBuilder.newBuilder()
+                .setPathToChromeWebDriver("D:\\temp\\chromedriver_78\\chromedriver.exe")
+                .setUrl("https://rozetka.com.ua/")
+                .setSearchField(By.xpath("//input[@name='search']"))
+                .setSearchButton(By.xpath("//button[@type='submit']"))
+                .setListButton(By.xpath("//div[@id='filter_viewlist']/a"))
+                .setAddToCartButton(By.xpath("//button[@name='topurchases']"))
+                .build();
+//        pageTesting = new MainPage(fieldObj);
 
     }
 
@@ -38,35 +34,13 @@ public class Main {
 
         pageTesting
                 .openApplication()
-                .enterSearchString(searchString)
+                .enterSearchString()
                 .goSearchPage();
 
     }
 
-    @Test
-    public void AddAndCheckCart(){
-        MakeSearch();
-        pageTesting
-                 .chengeViewToList()
-                .addToCart()
-                .proceedToCheckOut()
-                .addCountIncheckOut();
+    @AfterClass
 
-        Assert.assertEquals( currency+totalProductsInCart, pageTesting.getTotalProductsInCart(currency+totalProductsInCart));
-        Assert.assertEquals( currency+totalProductsShipingInCart, pageTesting.getTotalProductsShipingInCart());
-        Assert.assertEquals( currency+totalInCart, pageTesting.getTotalInCart());
-        Assert.assertEquals( currency+taxInCart, pageTesting.getTaxInCart());
-        Assert.assertEquals( currency+bigTotalInCart, pageTesting.getBigTotalInCart());
-//
-    }
-
-    @Test
-    public void DeleteAndCheckCart(){
-        AddAndCheckCart();
-        pageTesting
-                .deleteFromCart();
-        Assert.assertEquals( emptyCart, pageTesting.checkCart(emptyCart));
-    }
 
     public static void main(String[] args) {
 
