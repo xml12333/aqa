@@ -3,7 +3,11 @@
 <suite name="aqa" verbose="2" preserve-order="true" >
     <test name="Hometask Testing" >
         <classes>
-            <class name = "site.MainPage" />
+            <class name = "site.MainPage" >
+            <methods>
+                    <exclude name="MakeSearch"></exclude>
+            </methods>
+            </class>
             <class name="site.PrintString">
                 <methods>
                     <include name="PrintString1"></include>
