@@ -1,13 +1,10 @@
-import org.junit.AfterClass;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import site.FieldClassBuilder;
 import site.MainPage;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static WebDriver driver;
@@ -25,7 +22,7 @@ public class Main {
                 .setListButton(By.xpath("//div[@id='filter_viewlist']/a"))
                 .setAddToCartButton(By.xpath("//button[@name='topurchases']"))
                 .build();
-//        pageTesting = new MainPage(fieldObj);
+//        pageTesting = new site.MainPage(fieldObj);
 
     }
 
